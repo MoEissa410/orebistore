@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/orebiSlice";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const ProductInfo = ({ productInfo }) => {
   const dispatch = useDispatch();
   return (
@@ -14,7 +15,7 @@ const ProductInfo = ({ productInfo }) => {
         <span className="font-normal">Colors:</span> {productInfo.color}
       </p>
       <button
-        onClick={() =>
+        onClick={() => {
           dispatch(
             addToCart({
               _id: productInfo.id,
@@ -25,8 +26,18 @@ const ProductInfo = ({ productInfo }) => {
               price: productInfo.price,
               colors: productInfo.color,
             })
-          )
-        }
+          );
+          toast.success("🦄 product add success", {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }}
         className="w-full py-4 bg-primeColor hover:bg-black duration-300 text-white text-lg font-titleFont"
       >
         Add to Cart
@@ -35,6 +46,18 @@ const ProductInfo = ({ productInfo }) => {
         <span className="text-base font-medium"> Categories:</span> Spring
         collection, Streetwear, Women Tags: featured SKU: N/A
       </p>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

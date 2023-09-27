@@ -8,7 +8,9 @@ import Badge from "./Badge";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/orebiSlice";
+import { ToastContainer, toast } from "react-toastify";
 
+import "react-toastify/dist/ReactToastify.css";
 const Product = (props) => {
   const dispatch = useDispatch();
   const _id = props.productName;
@@ -44,7 +46,7 @@ const Product = (props) => {
               </span>
             </li>
             <li
-              onClick={() =>
+              onClick={() => {
                 dispatch(
                   addToCart({
                     _id: props._id,
@@ -55,8 +57,18 @@ const Product = (props) => {
                     price: props.price,
                     colors: props.color,
                   })
-                )
-              }
+                );
+                toast.success("🦄 product add success", {
+                  position: "top-right",
+                  autoClose: 1000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              }}
               className="text-[#767676] hover:text-primeColor text-sm font-normal border-b-[1px] border-b-gray-200 hover:border-b-primeColor flex items-center justify-end gap-2 hover:cursor-pointer pb-1 duration-300 w-full"
             >
               Add to Cart
@@ -93,6 +105,18 @@ const Product = (props) => {
           <p className="text-[#767676] text-[14px]">{props.color}</p>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
